@@ -19,9 +19,7 @@ class forwardattachment extends rcube_plugin
 		$rcmail = rcmail::get_instance();
 		if ($rcmail->action == '' || $rcmail->action == 'show') {
 			$this->add_texts('localization', true);
-			$skin_path = 'skins/'. $this->api->output->config['skin'] .'/forwardattachment.css';
-			$skin_path = is_file($this->home .'/'. $skin_path) ? $skin_path : 'skins/default/forwardattachment.css';
-			$this->include_stylesheet($skin_path);
+			$this->include_stylesheet($this->local_skin_path() . '/forwardattachment.css');
 			$this->include_script('forwardattachment.js');
 			$this->add_button(array('command' => 'plugin.forwardatt', 'title' => 'forwardattachment.buttontitle', 'imagepas' => 'skins/' . $this->api->output->config['skin'] . '/forwardatt_pas.png', 'imageact' => 'skins/' . $this->api->output->config['skin'] . '/forwardatt_act.png'), 'forwardatt');
 		}

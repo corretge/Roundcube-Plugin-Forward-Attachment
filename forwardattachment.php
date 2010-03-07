@@ -72,7 +72,7 @@ class forwardattachment extends rcube_plugin
 
 					if ($attachment['status'] && !$attachment['abort']) {
 						unset($attachment['data'], $attachment['status'], $attachment['abort']);
-						$_SESSION['compose']['attachments'][$attachment['id']] = $attachment;
+						$_SESSION['compose']['attachments'][] = $attachment;
 					}
 				}
 			}

@@ -39,7 +39,6 @@ class forwardattachment extends rcube_plugin
 			);
 
 			$uid = $_POST['_uid'];
-			$_FILES = array();
 			$a_uid = explode(",",$uid);
 
 			foreach($a_uid as $key => $uid){
@@ -59,28 +58,28 @@ class forwardattachment extends rcube_plugin
 				else
 					$disp_name = "message_rfc822.eml";
 
-				if(file_put_contents($file, $message)){
-					$_FILES['_attachments']['name'][] = $disp_name;
-					$_FILES['_attachments']['type'][] = "message/rfc822";
-					$_FILES['_attachments']['tmp_name'][] = $file;
-					$_FILES['_attachments']['error'][] = 0;
-					$_FILES['_attachments']['size'][] = filesize($file);
+				if(file_put_contents($file, $message)) {
+					$attachment = array(
+				      'path' => $file,
+				      'size' => filesize($file),
+				      'name' => $disp_name,
+				      'mimetype' => "message/rfc822"
+				    );
+
+					// save attachment if valid
+					if (($attachment['data'] && $attachment['name']) || ($attachment['path'] && file_exists($attachment['path'])))
+						$attachment = $rcmail->plugins->exec_hook('save_attachment', $attachment);
+
+					if ($attachment['status'] && !$attachment['abort']) {
+						unset($attachment['data'], $attachment['status'], $attachment['abort']);
+						$_SESSION['compose']['attachments'][$attachment['id']] = $attachment;
+					}
 				}
 			}
 		}
 
-		if(is_array($_FILES['_attachments']['tmp_name'])){
-			foreach ($_FILES['_attachments']['tmp_name'] as $i => $filepath){
-				$_SESSION['compose']['attachments'][] = array('name' => $_FILES['_attachments']['name'][$i],
-					'mimetype' => $_FILES['_attachments']['type'][$i],
-					'path' => $_FILES['_attachments']['tmp_name'][$i]
-					);
-			}
-
-			$_FILES = array();
-			$rcmail->output->redirect(array('_action' => 'compose', '_id' => $_SESSION['compose']['id']));
-			exit;
-		}
+		$rcmail->output->redirect(array('_action' => 'compose', '_id' => $_SESSION['compose']['id']));
+		exit;
 	}
 }
 

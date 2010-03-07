@@ -2,6 +2,10 @@
 
 if (window.rcmail) {
 	rcmail.addEventListener('init', function(evt) {
+		// move button to right place on toolbar and show
+		$('#' + rcmail.buttons['plugin.forwardatt'][0].id).insertAfter('#' + rcmail.buttons['forward'][0].id);
+		$('#' + rcmail.buttons['plugin.forwardatt'][0].id).show();
+
 		// register command (directly enable in message view mode)
 		rcmail.register_command('plugin.forwardatt', rcmail_forwardatt, rcmail.env.uid);
 

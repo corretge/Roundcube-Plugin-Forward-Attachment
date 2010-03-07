@@ -21,7 +21,7 @@ class forwardattachment extends rcube_plugin
 			$this->add_texts('localization', true);
 			$this->include_stylesheet($this->local_skin_path() . '/forwardattachment.css');
 			$this->include_script('forwardattachment.js');
-			$this->add_button(array('command' => 'plugin.forwardatt', 'title' => 'forwardattachment.buttontitle', 'imagepas' => 'skins/' . $this->api->output->config['skin'] . '/forwardatt_pas.png', 'imageact' => 'skins/' . $this->api->output->config['skin'] . '/forwardatt_act.png'), 'forwardatt');
+			$this->add_button(array('command' => 'plugin.forwardatt', 'type' => 'link', 'class' => 'buttonPas forwardAtt', 'classact' => 'button forwardAtt', 'classsel' => 'button forwardAttSel', 'title' => 'forwardattachment.buttontitle', 'content' => ' ', 'style' => 'display: none;'), 'toolbar');
 		}
 	}
 

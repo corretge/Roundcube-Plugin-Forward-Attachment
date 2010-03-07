@@ -45,7 +45,7 @@ class forwardattachment extends rcube_plugin
 			$a_uid = explode(",",$uid);
 
 			foreach($a_uid as $key => $uid){
-				$file = tempnam($temp_dir, 'emlattach')
+				$file = tempnam($temp_dir, 'emlattach');
 				$message = $rcmail->imap->get_raw_body($uid);
 				$headers = $rcmail->imap->get_headers($uid);
 

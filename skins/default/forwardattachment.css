@@ -2,6 +2,10 @@
   background: url('forwardatt_act.png') 0 0 no-repeat transparent;
 }
 
+#messagetoolbar a.forwardAttPas {
+  background: url('forwardatt_pas.png') 0 0 no-repeat transparent;
+}
+
 #messagetoolbar a.forwardAttSel {
   background: url('forwardatt_sel.png') 0 0 no-repeat transparent;
 }

@@ -1,13 +1,11 @@
 #messagetoolbar a.forwardAtt {
-  background: url('forwardatt_act.png') 0 0 no-repeat transparent;
-}
-
-#messagetoolbar a.forwardAttPas {
-  background: url('forwardatt_pas.png') 0 0 no-repeat transparent;
+  background-image: url('mail_toolbar.gif');
+  background-position: 0 0;
 }
 
 #messagetoolbar a.forwardAttSel {
-  background: url('forwardatt_sel.png') 0 0 no-repeat transparent;
+  background-image: url('mail_toolbar.gif');
+  background-position: 0 -32px;
 }
 
 #rcmContextMenu .forwardatt a

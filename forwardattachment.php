@@ -1,13 +1,14 @@
 <?php
 
 /**
- * @version 1.0 - 15.08.2009
- * @author Roland 'rosali' Liebl (code) / Sandro Pazzi (images) / Thomas Bruederli (used structure of markasjunk plugin)
- * @website http://myroundcube.googlecode.com
- * @licence GNU GPL
+ * ForwardAttachment
+ *
+ * Plugin to allow users to forward a message as an attachment
+ *
+ * @version 1.0
+ * @author Roland Liebl
  * @modified by Phil Weir
- **/
-
+ */
 class forwardattachment extends rcube_plugin
 {
 	public $task = 'mail';

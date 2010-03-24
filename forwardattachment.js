@@ -22,6 +22,13 @@ function rcmail_forwardatt(prop)
 	if (!rcmail.env.uid && (!rcmail.message_list || !rcmail.message_list.get_selection().length))
 		return;
 
+	// also select childs of (collapsed) threads
+	if (rcmail.message_list && rcmail.message_list.rows[rcmail.env.uid].has_children && !rcmail.message_list.rows[rcmail.env.uid].expanded) {
+		rcmail.message_list.select_row(rcmail.env.uid, CONTROL_KEY);
+		rcmail.message_list.select_childs(rcmail.env.uid);
+		rcmail.env.uid = null;
+	}
+
 	var uids = rcmail.env.uid ? rcmail.env.uid : rcmail.message_list.get_selection().join(',');
 
 	rcmail.set_busy(true, 'loading');

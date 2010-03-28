@@ -22,21 +22,25 @@ function rcmail_forwardatt(prop)
 	if (!rcmail.env.uid && (!rcmail.message_list || !rcmail.message_list.get_selection().length))
 		return;
 
+	var prev_sel = null;
+
 	// also select childs of (collapsed) threads
-	if (rcmail.message_list) {
-		if (rcmail.env.uid && rcmail.message_list.rows[rcmail.env.uid].has_children && !rcmail.message_list.rows[rcmail.env.uid].expanded) {
-			rcmail.message_list.select_row(rcmail.env.uid, CONTROL_KEY);
+	if (rcmail.env.uid) {
+		if (rcmail.message_list.rows[rcmail.env.uid].has_children && !rcmail.message_list.rows[rcmail.env.uid].expanded) {
+			if (!rcmail.message_list.in_selection(rcmail.env.uid)) {
+				prev_sel = rcmail.message_list.get_selection();
+				rcmail.message_list.select_row(rcmail.env.uid);
+			}
+
 			rcmail.message_list.select_childs(rcmail.env.uid);
 			rcmail.env.uid = null;
 		}
-		else if (rcmail.message_list.get_selection().length) {
-			var selection = $.merge([], rcmail.message_list.selection);
-			var depth, row, uid, r;
-			for (var n = 0; n < selection.length; n++) {
-				uid = selection[n];
-				if (rcmail.message_list.rows[uid].has_children && !rcmail.message_list.rows[uid].expanded)
-					rcmail.message_list.select_childs(uid);
-			}
+		else if (!rcmail.message_list.in_selection(rcmail.env.uid)) {
+			prev_sel = rcmail.message_list.get_single_selection();
+			rcmail.message_list.remove_row(rcmail.env.uid, false);
+		}
+		else if (rcmail.message_list.get_single_selection() == rcmail.env.uid) {
+			rcmail.env.uid = null;
 		}
 	}
 
@@ -44,6 +48,13 @@ function rcmail_forwardatt(prop)
 
 	rcmail.set_busy(true, 'loading');
 	rcmail.http_post('plugin.forwardatt', '_uid='+uids+'&_mbox='+urlencode(rcmail.env.mailbox), true);
+
+	if (prev_sel) {
+		rcmail.message_list.clear_selection();
+
+		for (var i in prev_sel)
+			rcmail.message_list.select_row(prev_sel[i], CONTROL_KEY);
+	}
 }
 
 function rcmail_forwardatt_init()

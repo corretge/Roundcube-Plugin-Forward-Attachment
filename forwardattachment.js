@@ -25,7 +25,7 @@ function rcmail_forwardatt(prop)
 	var prev_sel = null;
 
 	// also select childs of (collapsed) threads
-	if (rcmail.env.uid) {
+	if (rcmail.env.uid && rcmail.message_list) {
 		if (rcmail.message_list.rows[rcmail.env.uid].has_children && !rcmail.message_list.rows[rcmail.env.uid].expanded) {
 			if (!rcmail.message_list.in_selection(rcmail.env.uid)) {
 				prev_sel = rcmail.message_list.get_selection();
@@ -34,10 +34,6 @@ function rcmail_forwardatt(prop)
 
 			rcmail.message_list.select_childs(rcmail.env.uid);
 			rcmail.env.uid = null;
-		}
-		else if (!rcmail.message_list.in_selection(rcmail.env.uid)) {
-			prev_sel = rcmail.message_list.get_single_selection();
-			rcmail.message_list.remove_row(rcmail.env.uid, false);
 		}
 		else if (rcmail.message_list.get_single_selection() == rcmail.env.uid) {
 			rcmail.env.uid = null;

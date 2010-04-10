@@ -60,7 +60,7 @@ function rcmail_forwardatt(prop)
 	}
 }
 
-function rcmail_markasjunk2_status(command){
+function rcmail_forwardatt_status(command){
 	switch (command) {
 		case 'beforedelete':
 			if (!rcmail.env.flag_for_deletion && rcmail.env.trash_mailbox &&
@@ -98,10 +98,10 @@ function rcmail_forwardatt_init()
 rcmail.add_onload('rcmail_forwardatt_init()');
 
 // update button activation after external events
-rcmail.addEventListener('beforedelete', function(props) { rcmail_markasjunk2_status('beforedelete'); } );
-rcmail.addEventListener('beforemove', function(props) { rcmail_markasjunk2_status('beforemove'); } );
-rcmail.addEventListener('beforemoveto', function(props) { rcmail_markasjunk2_status('beforemoveto'); } );
-rcmail.addEventListener('aftermove', function(props) { rcmail_markasjunk2_status('aftermove'); } );
-rcmail.addEventListener('aftermoveto', function(props) { rcmail_markasjunk2_status('aftermoveto'); } );
-rcmail.addEventListener('afterpurge', function(props) { rcmail_markasjunk2_status('afterpurge'); } );
-rcmail.addEventListener('afterexpunge', function(props) { rcmail_markasjunk2_status('afterexpunge'); } );
+rcmail.addEventListener('beforedelete', function(props) { rcmail_forwardatt_status('beforedelete'); } );
+rcmail.addEventListener('beforemove', function(props) { rcmail_forwardatt_status('beforemove'); } );
+rcmail.addEventListener('beforemoveto', function(props) { rcmail_forwardatt_status('beforemoveto'); } );
+rcmail.addEventListener('aftermove', function(props) { rcmail_forwardatt_status('aftermove'); } );
+rcmail.addEventListener('aftermoveto', function(props) { rcmail_forwardatt_status('aftermoveto'); } );
+rcmail.addEventListener('afterpurge', function(props) { rcmail_forwardatt_status('afterpurge'); } );
+rcmail.addEventListener('afterexpunge', function(props) { rcmail_forwardatt_status('afterexpunge'); } );

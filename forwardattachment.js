@@ -15,7 +15,7 @@ if (window.rcmail) {
 				rcmail.message_list.addEventListener('select', function(list){
 					rcmail.enable_command('plugin.forwardatt', list.get_selection().length > 0);
 				});
-		catch(e) {}
+		} catch(e) {}
 	})
 }
 

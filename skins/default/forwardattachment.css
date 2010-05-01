@@ -1,9 +1,15 @@
-#messagetoolbar a.forwardAtt {
+/**
+ * ForwardAttachment plugin styles
+ */
+
+#messagetoolbar a.forwardAtt
+{
   background-image: url(mail_toolbar.gif);
   background-position: 0 0;
 }
 
-#messagetoolbar a.forwardAttSel {
+#messagetoolbar a.forwardAttSel
+{
   background-image: url(mail_toolbar.gif);
   background-position: 0 -32px;
 }

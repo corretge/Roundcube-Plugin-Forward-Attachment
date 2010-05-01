@@ -1,4 +1,6 @@
-/* Forwardasattachment plugin script */
+/**
+ * ForwardAttachment plugin script
+ */
 
 if (window.rcmail) {
 	rcmail.addEventListener('init', function(evt) {

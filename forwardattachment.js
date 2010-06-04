@@ -13,16 +13,17 @@ if (window.rcmail) {
 			rcmail.register_command('plugin.forwardatt', rcmail_forwardatt, rcmail.env.uid);
 
 			// add event-listener to message list
-			if (rcmail.message_list)
-				rcmail.message_list.addEventListener('select', function(list){
+			if (rcmail.message_list) {
+				rcmail.message_list.addEventListener('select', function(list) {
 					rcmail.enable_command('plugin.forwardatt', list.get_selection().length > 0);
 				});
-		} catch(e) {}
+			}
+		}
+		catch(e) {}
 	})
 }
 
-function rcmail_forwardatt(prop)
-{
+function rcmail_forwardatt(prop) {
 	if (!rcmail.env.uid && (!rcmail.message_list || !rcmail.message_list.get_selection().length))
 		return;
 
@@ -64,7 +65,7 @@ function rcmail_forwardatt(prop)
 	}
 }
 
-function rcmail_forwardatt_status(command){
+function rcmail_forwardatt_status(command) {
 	switch (command) {
 		case 'beforedelete':
 			if (!rcmail.env.flag_for_deletion && rcmail.env.trash_mailbox &&
@@ -92,8 +93,7 @@ function rcmail_forwardatt_status(command){
 	}
 }
 
-function rcmail_forwardatt_init()
-{
+function rcmail_forwardatt_init() {
 	if (window.rcm_contextmenu_register_command)
 		rcm_contextmenu_register_command('forwardatt', 'rcmail_forwardatt', rcmail.gettext('forwardattachment.buttontitle'), 'delete', null, true);
 

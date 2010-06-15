@@ -5,7 +5,7 @@
  *
  * Plugin to allow users to forward a message as an attachment
  *
- * @version 1.0
+ * @version @package_version@
  * @author Roland Liebl
  * @modified by Phil Weir
  */

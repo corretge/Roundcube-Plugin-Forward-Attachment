@@ -7,7 +7,7 @@
  *
  * @version @package_version@
  * @author Roland Liebl
- * @modified by Phil Weir
+ * @modified by Philip Weir
  */
 class forwardattachment extends rcube_plugin
 {

@@ -69,7 +69,7 @@ class forwardattachment extends rcube_plugin
 
 					// save attachment if valid
 					if (($attachment['data'] && $attachment['name']) || ($attachment['path'] && file_exists($attachment['path'])))
-						$attachment = $rcmail->plugins->exec_hook('save_attachment', $attachment);
+						$attachment = $rcmail->plugins->exec_hook('attachment_save', $attachment);
 
 					if ($attachment['status'] && !$attachment['abort']) {
 						unset($attachment['data'], $attachment['status'], $attachment['abort']);

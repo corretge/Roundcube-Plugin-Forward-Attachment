@@ -15,7 +15,7 @@ class forwardattachment extends rcube_plugin
 
 	function init()
 	{
-		$this->register_action('plugin.forwardatt', array($this, 'request_action'));
+		$this->register_action('plugin.forwardatt', array($this, 'attach_message'));
 
 		$rcmail = rcmail::get_instance();
 		if ($rcmail->action == '' || $rcmail->action == 'show') {
@@ -26,7 +26,7 @@ class forwardattachment extends rcube_plugin
 		}
 	}
 
-	function request_action()
+	function attach_message()
 	{
 		$rcmail = rcmail::get_instance();
 		$uids = get_input_value('_uid', RCUBE_INPUT_POST);

@@ -29,6 +29,7 @@ class forwardattachment extends rcube_plugin
 	function attach_message()
 	{
 		$rcmail = rcmail::get_instance();
+		$imap = $rcmail->imap;
 		$uids = get_input_value('_uid', RCUBE_INPUT_POST);
 		$temp_dir = $rcmail->config->get('temp_dir');
 
@@ -36,20 +37,18 @@ class forwardattachment extends rcube_plugin
 			rcmail_compose_cleanup();
 			$_SESSION['compose'] = array(
 				'id' => uniqid(rand()),
-				'mailbox' => $rcmail->imap->get_mailbox_name(),
+				'mailbox' => $imap->get_mailbox_name(),
 			);
 
-			$uid = $_POST['_uid'];
-			$a_uid = explode(",",$uid);
-
-			foreach($a_uid as $key => $uid){
+			$uids = explode(",", $_POST['_uid']);
+			foreach($uids as $key => $uid){
 				$file = tempnam($temp_dir, 'emlattach');
-				$message = $rcmail->imap->get_raw_body($uid);
-				$headers = $rcmail->imap->get_headers($uid);
+				$message = $imap->get_raw_body($uid);
+				$headers = $imap->get_headers($uid);
 
 				foreach($headers as $key => $val){
 					if($key == 'subject'){
-						$subject = (string)substr($rcmail->imap->decode_header($val, TRUE), 0, 16);
+						$subject = (string)substr($imap->decode_header($val, TRUE), 0, 16);
 						break;
 					}
 				}

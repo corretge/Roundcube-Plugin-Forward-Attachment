@@ -4,7 +4,7 @@
 
 if (window.rcmail) {
 	rcmail.addEventListener('init', function(evt) {
-		 try {
+		try {
 			// move button to right place on toolbar and show
 			$('#' + rcmail.buttons['plugin.forwardatt'][0].id).insertAfter('#' + rcmail.buttons['forward'][0].id);
 			$('#' + rcmail.buttons['plugin.forwardatt'][0].id).show();
@@ -86,10 +86,10 @@ function rcmail_forwardatt_status(command) {
 			break;
 		case 'afterpurge':
 		case 'afterexpunge':
-			 if (!rcmail.env.messagecount && rcmail.task == 'mail')
-			 	rcmail.enable_command('plugin.forwardatt', false);
+			if (!rcmail.env.messagecount && rcmail.task == 'mail')
+				rcmail.enable_command('plugin.forwardatt', false);
 
-			 break;
+			break;
 	}
 }
 

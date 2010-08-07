@@ -60,11 +60,11 @@ class forwardattachment extends rcube_plugin
 
 				if(file_put_contents($file, $message)) {
 					$attachment = array(
-				      'path' => $file,
-				      'size' => filesize($file),
-				      'name' => $disp_name,
-				      'mimetype' => "message/rfc822"
-				    );
+						'path' => $file,
+						'size' => filesize($file),
+						'name' => $disp_name,
+						'mimetype' => "message/rfc822"
+						);
 
 					// save attachment if valid
 					if (($attachment['data'] && $attachment['name']) || ($attachment['path'] && file_exists($attachment['path'])))

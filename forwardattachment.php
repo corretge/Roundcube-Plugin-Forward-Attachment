@@ -33,7 +33,7 @@ class forwardattachment extends rcube_plugin
 		$uids = get_input_value('_uid', RCUBE_INPUT_POST);
 		$temp_dir = $rcmail->config->get('temp_dir');
 
-		if(isset($_POST['_uid'])){
+		if(isset($_POST['_uid'])) {
 			rcmail_compose_cleanup();
 			$_SESSION['compose'] = array(
 				'id' => uniqid(rand()),
@@ -78,6 +78,7 @@ class forwardattachment extends rcube_plugin
 			}
 		}
 
+		$_SESSION['compose']['param']['sent_mbox'] = $rcmail->config->get('sent_mbox');
 		$rcmail->output->redirect(array('_action' => 'compose', '_id' => $_SESSION['compose']['id']));
 		exit;
 	}

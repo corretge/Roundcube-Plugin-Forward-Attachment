@@ -33,7 +33,7 @@ class forwardattachment extends rcube_plugin
 		$uids = get_input_value('_uid', RCUBE_INPUT_POST);
 		$temp_dir = $rcmail->config->get('temp_dir');
 
-		if(isset($_POST['_uid'])) {
+		if (isset($_POST['_uid'])) {
 			rcmail_compose_cleanup();
 			$_SESSION['compose'] = array(
 				'id' => uniqid(rand()),
@@ -41,24 +41,29 @@ class forwardattachment extends rcube_plugin
 			);
 
 			$uids = explode(",", $_POST['_uid']);
-			foreach($uids as $key => $uid){
+			foreach ($uids as $key => $uid) {
 				$file = tempnam($temp_dir, 'emlattach');
 				$message = $imap->get_raw_body($uid);
 				$headers = $imap->get_headers($uid);
 
 				foreach($headers as $key => $val){
-					if($key == 'subject'){
+					if ($key == 'subject') {
 						$subject = (string)substr($imap->decode_header($val, TRUE), 0, 16);
 						break;
 					}
 				}
 
-				if(isset($subject) && $subject !="")
+				if (isset($subject) && $subject != "") {
 					$disp_name = preg_replace("/[^0-9A-Za-z_]/", '_', $subject) . ".eml";
-				else
-					$disp_name = "message_rfc822.eml";
 
-				if(file_put_contents($file, $message)) {
+					if(preg_match('/^_*\.eml$/', $disp_name))
+						$disp_name = "message_rfc822.eml";
+				}
+				else {
+					$disp_name = "message_rfc822.eml";
+				}
+
+				if (file_put_contents($file, $message)) {
 					$attachment = array(
 						'path' => $file,
 						'size' => filesize($file),

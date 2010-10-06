@@ -2,18 +2,6 @@
  * ForwardAttachment plugin styles
  */
 
-#messagetoolbar a.forwardAtt
-{
-  background-image: url(mail_toolbar.gif);
-  background-position: 0 0;
-}
-
-#messagetoolbar a.forwardAttSel
-{
-  background-image: url(mail_toolbar.gif);
-  background-position: 0 -32px;
-}
-
 #rcmContextMenu .forwardatt a
 {
   background: url(forwarded.png) no-repeat 7px center;

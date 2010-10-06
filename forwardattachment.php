@@ -19,11 +19,34 @@ class forwardattachment extends rcube_plugin
 
 		$rcmail = rcmail::get_instance();
 		if ($rcmail->action == '' || $rcmail->action == 'show') {
-			$this->add_texts('localization', true);
-			$this->include_stylesheet($this->local_skin_path() . '/forwardattachment.css');
-			$this->include_script('forwardattachment.js');
-			$this->add_button(array('command' => 'plugin.forwardatt', 'type' => 'link', 'class' => 'buttonPas forwardAtt', 'classact' => 'button forwardAtt', 'classsel' => 'button forwardAttSel', 'title' => 'forwardattachment.buttontitle', 'content' => ' ', 'style' => 'display: none;'), 'toolbar');
+			$this->add_hook('render_mailboxlist', array($this, 'add_menu'));
+			$this->add_hook('render_page', array($this, 'init_menu'));
 		}
+	}
+
+	function add_menu($args)
+	{
+		$this->add_texts('localization', true);
+		$this->include_stylesheet($this->local_skin_path() . '/forwardattachment.css');
+		$this->include_script('forwardattachment.js');
+		$li = '';
+
+		$forward = $this->api->output->button(array('command' => 'forward', 'label' => 'forwardmessage', 'class' => 'forwardlink', 'classact' => 'forwardlink active'));
+		$forwardattachment = $this->api->output->button(array('command' => 'plugin.forwardatt', 'label' => 'forwardattachment.buttontitle', 'class' => 'forwardattlink', 'classact' => 'forwardattlink active'));
+
+		$li .= html::tag('li', null, $forward);
+		$li .= html::tag('li', null, $forwardattachment);
+		$out .= html::tag('ul', null, $li);
+
+		$this->api->output->add_footer(html::div(array('id' => 'forwardmenu', 'class' => 'popupmenu'), $out));
+	}
+
+	function init_menu($args)
+	{
+		$args['content'] = preg_replace("/(rcube_init_mail_ui\(\))/", "rcube_init_mail_ui(); rcmail_ui.popups.forwardmenu = {id: 'forwardmenu', obj:$('#forwardmenu')};", $args['content']);
+		$args['content'] = preg_replace("/(<a[^>]*onclick=\"return rcmail.command\('forward','',this\)\"[^>]*>\s*<\/a>)/", "<span class=\"dropbutton\">$1<span id=\"forwardmenulink\" onclick=\"rcmail_ui.show_popup('forwardmenu');return false\"></span></span>", $args['content']);
+
+		return $args;
 	}
 
 	function attach_message()

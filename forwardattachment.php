@@ -27,7 +27,6 @@ class forwardattachment extends rcube_plugin
 	function add_menu($args)
 	{
 		$this->add_texts('localization', true);
-		$this->include_stylesheet($this->local_skin_path() . '/forwardattachment.css');
 		$this->include_script('forwardattachment.js');
 		$li = '';
 

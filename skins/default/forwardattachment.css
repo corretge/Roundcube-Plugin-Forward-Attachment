@@ -1,8 +1,0 @@
-/**
- * ForwardAttachment plugin styles
- */
-
-#rcmContextMenu .forwardatt a
-{
-  background: url(forwarded.png) no-repeat 7px center;
-}

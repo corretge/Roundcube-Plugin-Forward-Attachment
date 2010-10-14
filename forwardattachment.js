@@ -49,8 +49,8 @@ function rcmail_forwardatt(prop) {
 
 	var uids = rcmail.env.uid ? rcmail.env.uid : rcmail.message_list.get_selection().join(',');
 
-	rcmail.set_busy(true, 'loading');
-	rcmail.http_post('plugin.forwardatt', '_uid='+uids+'&_mbox='+urlencode(rcmail.env.mailbox), true);
+	var lock = rcmail.set_busy(true, 'loading');
+	rcmail.http_post('plugin.forwardatt', '_uid='+uids+'&_mbox='+urlencode(rcmail.env.mailbox), lock);
 
 	if (prev_sel) {
 		rcmail.message_list.clear_selection();

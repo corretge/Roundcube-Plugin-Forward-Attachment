@@ -90,7 +90,7 @@ function rcmail_forwardatt_status(command) {
 
 function rcmail_forwardatt_init() {
 	if (window.rcm_contextmenu_register_command) {
-		rcm_contextmenu_register_command('forwardatt', 'rcmail_forwardatt', rcmail.gettext('forwardattachment.buttontitle'), 'delete', null, true);
+		rcm_contextmenu_register_command('forwardatt', 'rcmail_forwardatt', rcmail.gettext('forwardattachment.buttontitle'), 'forward', null, true, true);
 		$('#rcmContextMenu li.forwardatt').addClass('forward');
 	}
 }

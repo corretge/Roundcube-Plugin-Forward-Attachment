@@ -67,23 +67,13 @@ class forwardattachment extends rcube_plugin
 				$file = tempnam($temp_dir, 'emlattach');
 				$message = $imap->get_raw_body($uid);
 				$headers = $imap->get_headers($uid);
+				$subject = $imap->decode_header($headers->subject);
+				$subject = substr($subject, 0, 16);
 
-				foreach($headers as $key => $val){
-					if ($key == 'subject') {
-						$subject = (string)substr($imap->decode_header($val, TRUE), 0, 16);
-						break;
-					}
-				}
-
-				if (isset($subject) && $subject != "") {
-					$disp_name = preg_replace("/[^0-9A-Za-z_]/", '_', $subject) . ".eml";
-
-					if(preg_match('/^_*\.eml$/', $disp_name))
-						$disp_name = "message_rfc822.eml";
-				}
-				else {
+				if (isset($subject) && $subject != "")
+					$disp_name = $subject . ".eml";
+				else
 					$disp_name = "message_rfc822.eml";
-				}
 
 				if (file_put_contents($file, $message)) {
 					$attachment = array(

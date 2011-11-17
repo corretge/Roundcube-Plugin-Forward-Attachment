@@ -3,7 +3,7 @@
 /**
  * ForwardAttachment
  *
- * Plugin to allow users to forward a message as an attachment
+ * Plugin to allow forwarding multiple mails as attachments
  *
  * @version @package_version@
  * @author Roland Liebl
@@ -16,36 +16,9 @@ class forwardattachment extends rcube_plugin
 	function init()
 	{
 		$this->register_action('plugin.forwardatt', array($this, 'attach_message'));
-
-		$rcmail = rcmail::get_instance();
-		if ($rcmail->action == '' || $rcmail->action == 'show') {
-			$this->add_hook('render_mailboxlist', array($this, 'add_menu'));
-			$this->add_hook('render_page', array($this, 'init_menu'));
+		if (rcmail::get_instance()->action == '') {
+			$this->include_script('forwardattachment.js');
 		}
-	}
-
-	function add_menu($args)
-	{
-		$this->add_texts('localization', true);
-		$this->include_script('forwardattachment.js');
-		$li = '';
-
-		$forward = $this->api->output->button(array('command' => 'forward', 'label' => 'forwardmessage', 'class' => 'forwardlink', 'classact' => 'forwardlink active'));
-		$forwardattachment = $this->api->output->button(array('command' => 'plugin.forwardatt', 'label' => 'forwardattachment.buttontitle', 'class' => 'forwardattlink', 'classact' => 'forwardattlink active'));
-
-		$li .= html::tag('li', null, $forward);
-		$li .= html::tag('li', null, $forwardattachment);
-		$out .= html::tag('ul', null, $li);
-
-		$this->api->output->add_footer(html::div(array('id' => 'forwardmenu', 'class' => 'popupmenu'), $out));
-	}
-
-	function init_menu($args)
-	{
-		$args['content'] = preg_replace("/(rcube_init_mail_ui\(\))/", "rcube_init_mail_ui(); rcmail_ui.popups.forwardmenu = {id: 'forwardmenu', obj:$('#forwardmenu')};", $args['content']);
-		$args['content'] = preg_replace("/(<a[^>]*onclick=\"return rcmail.command\('forward','',this\)\"[^>]*>\s*<\/a>)/", "<span class=\"dropbutton\">$1<span id=\"forwardmenulink\" onclick=\"rcmail_ui.show_popup('forwardmenu');return false\"></span></span>", $args['content']);
-
-		return $args;
 	}
 
 	function attach_message()
@@ -56,7 +29,6 @@ class forwardattachment extends rcube_plugin
 		$temp_dir = $rcmail->config->get('temp_dir');
 
 		if (isset($_POST['_uid'])) {
-			rcmail_compose_cleanup();
 			$_SESSION['compose'] = array(
 				'id' => uniqid(rand()),
 				'mailbox' => $imap->get_mailbox_name(),

@@ -16,9 +16,8 @@ class forwardattachment extends rcube_plugin
 	function init()
 	{
 		$this->register_action('plugin.forwardatt', array($this, 'attach_message'));
-		if (rcmail::get_instance()->action == '') {
+		if (rcmail::get_instance()->action == '')
 			$this->include_script('forwardattachment.js');
-		}
 	}
 
 	function attach_message()

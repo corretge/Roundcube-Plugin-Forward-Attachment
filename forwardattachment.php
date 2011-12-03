@@ -24,16 +24,15 @@ class forwardattachment extends rcube_plugin
 	{
 		$rcmail = rcmail::get_instance();
 		$imap = $rcmail->imap;
-		$uids = get_input_value('_uid', RCUBE_INPUT_POST);
 		$temp_dir = $rcmail->config->get('temp_dir');
 
-		if (isset($_POST['_uid'])) {
+		if ($uids = get_input_value('_uid', RCUBE_INPUT_GPC)) {
 			$_SESSION['compose'] = array(
 				'id' => uniqid(rand()),
 				'mailbox' => $imap->get_mailbox_name(),
 			);
 
-			$uids = explode(",", $_POST['_uid']);
+			$uids = explode(",", $uids);
 			foreach ($uids as $key => $uid) {
 				$message = new rcube_message($uid);
 				$this->_rcmail_write_forward_attachment($message);

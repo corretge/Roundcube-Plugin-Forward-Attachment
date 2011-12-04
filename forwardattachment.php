@@ -26,27 +26,29 @@ class forwardattachment extends rcube_plugin
 		$imap = $rcmail->imap;
 		$temp_dir = $rcmail->config->get('temp_dir');
 
-		if ($uids = get_input_value('_uid', RCUBE_INPUT_GPC)) {
-			$_SESSION['compose'] = array(
-				'id' => uniqid(rand()),
-				'mailbox' => $imap->get_mailbox_name(),
-			);
+		$COMPOSE_ID = uniqid(mt_rand());
+		$_SESSION['compose_data_' . $COMPOSE_ID] = array(
+			'id' => $COMPOSE_ID,
+			'mailbox' =>  $imap->get_mailbox_name(),
+		);
+		$COMPOSE =& $_SESSION['compose_data_' . $COMPOSE_ID];
 
+		if ($uids = get_input_value('_uid', RCUBE_INPUT_GPC)) {
 			$uids = explode(",", $uids);
 			foreach ($uids as $key => $uid) {
 				$message = new rcube_message($uid);
-				$this->_rcmail_write_forward_attachment($message);
+				$this->_rcmail_write_forward_attachment($message, $COMPOSE);
 			}
 		}
 
-		$_SESSION['compose']['param']['sent_mbox'] = $rcmail->config->get('sent_mbox');
-		$rcmail->output->redirect(array('_action' => 'compose', '_id' => $_SESSION['compose']['id']));
+		$COMPOSE['param']['sent_mbox'] = $rcmail->config->get('sent_mbox');
+		$rcmail->output->redirect(array('_action' => 'compose', '_id' => $COMPOSE['id']));
 		exit;
 	}
 
 	// Creates an attachment from the forwarded message
 	// Copied from program/steps/mail/compose.inc
-	private function _rcmail_write_forward_attachment(&$message)
+	private function _rcmail_write_forward_attachment(&$message, &$COMPOSE)
 	{
 		$rcmail = rcmail::get_instance();
 
@@ -76,7 +78,7 @@ class forwardattachment extends rcube_plugin
 		}
 
 		$attachment = array(
-			'group' => $_SESSION['compose']['id'],
+			'group' => $COMPOSE['id'],
 			'name' => $name,
 			'mimetype' => 'message/rfc822',
 			'data' => $data,
@@ -88,7 +90,7 @@ class forwardattachment extends rcube_plugin
 
 		if ($attachment['status']) {
 			unset($attachment['data'], $attachment['status'], $attachment['content_id'], $attachment['abort']);
-			$_SESSION['compose']['attachments'][$attachment['id']] = $attachment;
+			$COMPOSE['attachments'][$attachment['id']] = $attachment;
 		}
 		elseif ($path) {
 			@unlink($path);

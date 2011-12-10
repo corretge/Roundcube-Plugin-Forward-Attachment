@@ -2,17 +2,6 @@
  * ForwardAttachment plugin script
  */
 
-if (window.rcmail) {
-	rcmail.addEventListener('init', function(evt) {
-		// add event-listener to message list
-		if (rcmail.message_list) {
-			rcmail.message_list.addEventListener('select', function(list) {
-				rcmail.enable_command('forward-attachment', list.get_selection().length > 0);
-			});
-		}
-	})
-}
-
 function rcmail_forwardatt(prop) {
 	if (rcmail.message_list && rcmail.message_list.get_selection().length > 1) {
 		// also select childs of (collapsed) threads
@@ -50,7 +39,20 @@ function rcmail_forwardatt_init() {
 		delete rcmail.contextmenu_disable_multi[rcmail.contextmenu_disable_multi.indexOf('#forward-attachment')];
 }
 
-rcmail.add_onload('rcmail_forwardatt_init()');
+$(document).ready(function() {
+	if (window.rcmail) {
+		rcmail.addEventListener('init', function(evt) {
+			// add event-listener to message list
+			if (rcmail.message_list) {
+				rcmail.message_list.addEventListener('select', function(list) {
+					rcmail.enable_command('forward-attachment', list.get_selection().length > 0);
+				});
+			}
+		});
 
-// override default forward attachment function
-rcmail.addEventListener('beforeforward-attachment', function(props) { return rcmail_forwardatt(props); } );
+		rcmail.add_onload('rcmail_forwardatt_init()');
+
+		// override default forward attachment function
+		rcmail.addEventListener('beforeforward-attachment', function(props) { return rcmail_forwardatt(props); } );
+	}
+});

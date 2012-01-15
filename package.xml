@@ -5,8 +5,8 @@
 	http://pear.php.net/dtd/package-2.0.xsd">
 	<name>forwardattachment</name>
 	<channel>pear.roundcube.net</channel>
-	<summary>Extend forward as attachment to work with multiple messages</summary>
-	<description>Extend the core forward as attachment function to allow forwarding multiple messages as attachments.</description>
+	<summary>Extends the forward as attachment function to work with multiple messages</summary>
+	<description>Extends the core forward as attachment function to allow forwarding multiple messages as attachments.</description>
 	<lead>
 		<name>Philip Weir</name>
 		<user>JohnDoh</user>
@@ -19,8 +19,8 @@
 		<email>roland@liebl.ath.cx</email>
 		<active>no</active>
 	</developer>
-	<date>2011-11-20</date>
-	<time>12:02:14</time>
+	<date>2012-01-15</date>
+	<time>11:18:08</time>
 	<version>
 		<release>2.1</release>
 		<api>2.1</api>
@@ -30,7 +30,7 @@
 		<api>stable</api>
 	</stability>
 	<license uri="http://www.gnu.org/licenses/gpl-2.0.html">GNU GPLv2</license>
-	<notes>For internal use only</notes>
+	<notes>-</notes>
 	<contents>
 		<dir baseinstalldir="/" name="/">
 			<file name="forwardattachment.php" role="php">

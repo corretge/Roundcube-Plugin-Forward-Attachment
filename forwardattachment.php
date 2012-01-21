@@ -33,7 +33,7 @@ class forwardattachment extends rcube_plugin
 		);
 		$COMPOSE =& $_SESSION['compose_data_' . $COMPOSE_ID];
 
-		if ($uids = rcube_ui::get_input_value('_uid', RCUBE_INPUT_GPC)) {
+		if ($uids = rcube_ui::get_input_value('_uid', rcube_ui::INPUT_GPC)) {
 			$uids = explode(",", $uids);
 			foreach ($uids as $key => $uid) {
 				$message = new rcube_message($uid);

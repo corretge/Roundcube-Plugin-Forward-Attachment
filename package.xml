@@ -4,7 +4,7 @@
 	http://pear.php.net/dtd/package-2.0
 	http://pear.php.net/dtd/package-2.0.xsd">
 	<name>forwardattachment</name>
-	<channel>pear.roundcube.net</channel>
+	<uri>http://github.com/JohnDoh/Roundcube-Plugin-Forward-Attachment/</uri>
 	<summary>Extends the forward as attachment function to work with multiple messages</summary>
 	<description>Extends the core forward as attachment function to allow forwarding multiple messages as attachments.</description>
 	<lead>
@@ -19,8 +19,8 @@
 		<email>roland@liebl.ath.cx</email>
 		<active>no</active>
 	</developer>
-	<date>2012-01-21</date>
-	<time>11:26:15</time>
+	<date>2012-01-22</date>
+	<time>10:42:53</time>
 	<version>
 		<release>2.2</release>
 		<api>2.2</api>
@@ -29,7 +29,7 @@
 		<release>stable</release>
 		<api>stable</api>
 	</stability>
-	<license uri="http://www.gnu.org/licenses/gpl-3.0.html">GNU GPLv3</license>
+	<license uri="http://www.gnu.org/licenses/gpl.html">GNU GPLv3+</license>
 	<notes>-</notes>
 	<contents>
 		<dir baseinstalldir="/" name="/">

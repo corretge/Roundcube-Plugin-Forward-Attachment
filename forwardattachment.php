@@ -16,13 +16,13 @@ class forwardattachment extends rcube_plugin
 	function init()
 	{
 		$this->register_action('plugin.forwardatt', array($this, 'attach_message'));
-		if (rcmail::get_instance()->action == '')
+		if (rcube::get_instance()->action == '')
 			$this->include_script('forwardattachment.js');
 	}
 
 	function attach_message()
 	{
-		$rcmail = rcmail::get_instance();
+		$rcmail = rcube::get_instance();
 		$storage = $rcmail->storage;
 		$temp_dir = $rcmail->config->get('temp_dir');
 
@@ -33,7 +33,7 @@ class forwardattachment extends rcube_plugin
 		);
 		$COMPOSE =& $_SESSION['compose_data_' . $COMPOSE_ID];
 
-		if ($uids = get_input_value('_uid', RCUBE_INPUT_GPC)) {
+		if ($uids = rcube_ui::get_input_value('_uid', rcube_ui::INPUT_GPC)) {
 			$uids = explode(",", $uids);
 			foreach ($uids as $key => $uid) {
 				$message = new rcube_message($uid);
@@ -50,7 +50,7 @@ class forwardattachment extends rcube_plugin
 	// Copied from program/steps/mail/compose.inc
 	private function _rcmail_write_forward_attachment(&$message, &$COMPOSE)
 	{
-		$rcmail = rcmail::get_instance();
+		$rcmail = rcube::get_instance();
 
 		if (strlen($message->subject))
 			$name = mb_substr($message->subject, 0, 64) . '.eml';

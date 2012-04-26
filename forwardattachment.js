@@ -35,8 +35,21 @@ function rcmail_forwardatt(prop) {
 }
 
 function rcmail_forwardatt_init() {
-	if (window.rcm_contextmenu_register_command && rcmail.contextmenu_disable_multi.indexOf('#forward-attachment') != -1)
-		delete rcmail.contextmenu_disable_multi[rcmail.contextmenu_disable_multi.indexOf('#forward-attachment')];
+	var idx = -1;
+
+	// check for browser support if Array.indexOf
+	if (Array.prototype.indexOf) {
+		idx = rcmail.contextmenu_disable_multi.indexOf('#forward-attachment');
+	}
+	else {
+		for (i = 0; i < rcmail.contextmenu_disable_multi.length; i++) {
+			if (rcmail.contextmenu_disable_multi[i] == '#forward-attachment')
+				idx = i;
+		}
+	}
+
+	if (window.rcm_contextmenu_register_command && idx != -1)
+		delete rcmail.contextmenu_disable_multi[idx];
 }
 
 $(document).ready(function() {

@@ -24,6 +24,8 @@ directory in the downloaded archive.
 If you clone the roundcube master repository, you can add this plugin with this command at root of roundcube folder:
 	git submodule add https://github.com/JohnDoh/Roundcube-Plugin-Forward-Attachment.git plugins/forwardattachment
 
+@todo How to enable forward message toolbar/contextmenu buttons when select multiple messages.
+
 Requirements
 ============
 contextmenu plugin

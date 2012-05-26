@@ -21,6 +21,9 @@ NB: When downloading the plugin from GitHub you will need to create a directory
 called forwardattachment and place the files in there, ignoring the root
 directory in the downloaded archive.
 
+If you clone the roundcube master repository, you can add this plugin with this command at root of roundcube folder:
+	git submodule add https://github.com/JohnDoh/Roundcube-Plugin-Forward-Attachment.git plugins/forwardattachment
+
 Requirements
 ============
 contextmenu plugin
